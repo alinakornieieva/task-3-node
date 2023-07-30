@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateNote = exports.removeNote = exports.addNote = exports.data = void 0;
+exports.updateArchived = exports.updateNote = exports.removeNote = exports.addNote = exports.data = void 0;
 exports.data = [
     {
         id: 1,
@@ -82,3 +82,11 @@ const updateNote = (id, note, content, dates, category) => {
     exports.data[index] = Object.assign(Object.assign({}, exports.data[index]), { note, content, dates, category });
 };
 exports.updateNote = updateNote;
+const updateArchived = (id) => {
+    const index = exports.data.findIndex((item) => {
+        if (item.id == id)
+            return true;
+    });
+    exports.data[index].archived = !exports.data[index].archived;
+};
+exports.updateArchived = updateArchived;

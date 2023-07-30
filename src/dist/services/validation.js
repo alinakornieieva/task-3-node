@@ -29,7 +29,7 @@ exports.idSchema = Yup.object({
     params: Yup.object({
         id: Yup.number().required(),
     }),
-});
+}).noUnknown(true);
 exports.noteSchema = Yup.object({
     body: Yup.object({
         note: Yup.string().min(3).required(),
@@ -39,7 +39,7 @@ exports.noteSchema = Yup.object({
         id: Yup.number().required(),
         archived: Yup.boolean().required(),
     }),
-});
+}).noUnknown(true);
 exports.updatedNoteSchema = Yup.object({
     body: Yup.object({
         note: Yup.string().min(3).required(),
@@ -50,4 +50,4 @@ exports.updatedNoteSchema = Yup.object({
     params: Yup.object({
         id: Yup.number().required(),
     }),
-});
+}).noUnknown(true);

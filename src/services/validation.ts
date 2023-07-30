@@ -4,7 +4,7 @@ export const idSchema = Yup.object({
   params: Yup.object({
     id: Yup.number().required(),
   }),
-});
+}).noUnknown(true);
 
 export const noteSchema = Yup.object({
   body: Yup.object({
@@ -15,7 +15,7 @@ export const noteSchema = Yup.object({
     id: Yup.number().required(),
     archived: Yup.boolean().required(),
   }),
-});
+}).noUnknown(true);
 
 export const updatedNoteSchema = Yup.object({
   body: Yup.object({
@@ -27,4 +27,4 @@ export const updatedNoteSchema = Yup.object({
   params: Yup.object({
     id: Yup.number().required(),
   }),
-});
+}).noUnknown(true);

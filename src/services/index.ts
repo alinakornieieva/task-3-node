@@ -1,5 +1,11 @@
 import { Request, Response } from "express";
-import { data, removeNote, addNote, updateNote } from "../repositories";
+import {
+  data,
+  removeNote,
+  addNote,
+  updateNote,
+  updateArchived,
+} from "../repositories";
 import { INote } from "../models/INote";
 import { IStats } from "../models/IStats";
 
@@ -90,6 +96,22 @@ export const patchNote = (req: Request, res: Response) => {
     }
     const { note, content, dates, category }: INote = req.body;
     updateNote(id, note, content, dates, category);
+    res.status(200).json({ message: "Note was updated" });
+  } catch (error) {
+    res.status(500).json({ mesage: "Something went wrong", error });
+  }
+};
+
+export const patchArchived = (req: Request, res: Response) => {
+  try {
+    const id = +req.params.id;
+    const index = data.findIndex((item) => {
+      if (item.id === id) return true;
+    });
+    if (index === -1) {
+      return res.status(404).json({ message: "Such note doesn`t exist" });
+    }
+    updateArchived(id);
     res.status(200).json({ message: "Note was updated" });
   } catch (error) {
     res.status(500).json({ mesage: "Something went wrong", error });

@@ -66,23 +66,30 @@ export let data: INote[] = [
   },
 ];
 
-export const addNote = (note: INote) => {
+export const addNote = (note: INote): void => {
   data.push(note);
 };
 
-export const removeNote = (id: number) => {
+export const removeNote = (id: INote["id"]): void => {
   data = data.filter((item: INote) => item.id !== id);
 };
 
 export const updateNote = (
-  id: number,
+  id: INote["id"],
   note: INote["note"],
   content: INote["content"],
   dates: INote["dates"],
   category: INote["category"]
-) => {
+): void => {
   const index = data.findIndex((item) => {
     if (item.id == id) return true;
   });
   data[index] = { ...data[index], note, content, dates, category };
+};
+
+export const updateArchived = (id: INote["id"]): void => {
+  const index = data.findIndex((item) => {
+    if (item.id == id) return true;
+  });
+  data[index].archived = !data[index].archived;
 };

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.patchNote = exports.postNote = exports.deleteNote = exports.getStats = exports.getNote = exports.getAll = void 0;
+exports.patchArchived = exports.patchNote = exports.postNote = exports.deleteNote = exports.getStats = exports.getNote = exports.getAll = void 0;
 const repositories_1 = require("../repositories");
 const getAll = (req, res) => {
     try {
@@ -100,3 +100,21 @@ const patchNote = (req, res) => {
     }
 };
 exports.patchNote = patchNote;
+const patchArchived = (req, res) => {
+    try {
+        const id = +req.params.id;
+        const index = repositories_1.data.findIndex((item) => {
+            if (item.id === id)
+                return true;
+        });
+        if (index === -1) {
+            return res.status(404).json({ message: "Such note doesn`t exist" });
+        }
+        (0, repositories_1.updateArchived)(id);
+        res.status(200).json({ message: "Note was updated" });
+    }
+    catch (error) {
+        res.status(500).json({ mesage: "Something went wrong", error });
+    }
+};
+exports.patchArchived = patchArchived;
