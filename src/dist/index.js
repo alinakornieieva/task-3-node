@@ -76,5 +76,5 @@ const app = (0, express_1.default)();
 const PORT = 5000;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-app.use("/notes", routes_1.default); //routes
+app.use("/notes", routes_1.default);
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
