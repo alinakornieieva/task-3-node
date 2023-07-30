@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const services_1 = require("../services");
+const validate_1 = require("../services/validate");
+const validation_1 = require("../services/validation");
+const router = (0, express_1.Router)();
+router.get("/", services_1.getAll);
+router.get("/stats", services_1.getStats);
+router.get("/:id", (0, validate_1.validate)(validation_1.idSchema), services_1.getNote);
+router.post("/", (0, validate_1.validate)(validation_1.noteSchema), services_1.postNote);
+router.delete("/:id", (0, validate_1.validate)(validation_1.idSchema), services_1.deleteNote);
+router.patch("/archive/:id", (0, validate_1.validate)(validation_1.idSchema), services_1.patchArchived);
+router.patch("/:id", (0, validate_1.validate)(validation_1.updatedNoteSchema), services_1.patchNote);
+exports.default = router;

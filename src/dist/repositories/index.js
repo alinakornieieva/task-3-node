@@ -1,12 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.data = void 0;
-const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
-const routes_1 = __importDefault(require("./routes"));
+exports.updateArchived = exports.updateNote = exports.removeNote = exports.addNote = exports.data = void 0;
 exports.data = [
     {
         id: 1,
@@ -72,9 +66,27 @@ exports.data = [
         dates: [],
     },
 ];
-const app = (0, express_1.default)();
-const PORT = 5000;
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
-app.use("/notes", routes_1.default); //routes
-app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+const addNote = (note) => {
+    exports.data.push(note);
+};
+exports.addNote = addNote;
+const removeNote = (id) => {
+    exports.data = exports.data.filter((item) => item.id !== id);
+};
+exports.removeNote = removeNote;
+const updateNote = (id, note, content, dates, category) => {
+    const index = exports.data.findIndex((item) => {
+        if (item.id == id)
+            return true;
+    });
+    exports.data[index] = Object.assign(Object.assign({}, exports.data[index]), { note, content, dates, category });
+};
+exports.updateNote = updateNote;
+const updateArchived = (id) => {
+    const index = exports.data.findIndex((item) => {
+        if (item.id == id)
+            return true;
+    });
+    exports.data[index].archived = !exports.data[index].archived;
+};
+exports.updateArchived = updateArchived;
