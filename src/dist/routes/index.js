@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const repositories_1 = require("../repositories");
-const postNote_1 = require("./postNote");
+const services_1 = require("../services");
 const router = (0, express_1.Router)();
-router.get("/", repositories_1.getAll);
-router.get("/stats", repositories_1.getStats);
-router.get("/:id", repositories_1.getNote);
-router.post("/", postNote_1.postNote);
-// router.delete()
-// router.patch()
+router.get("/", services_1.getAll);
+router.get("/stats", services_1.getStats);
+router.get("/:id", services_1.getNote);
+router.post("/", services_1.postNote);
+router.delete("/:id", services_1.deleteNote);
+router.patch("/:id", services_1.patchNote);
 exports.default = router;
