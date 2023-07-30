@@ -68,7 +68,7 @@ export const postNote = (req: Request, res: Response) => {
     const index = data.findIndex((item) => {
       if (item.id === id) return true;
     });
-    if (index === -1) {
+    if (index !== -1) {
       return res.status(404).json({ message: "Such note already exists" });
     }
     addNote({ note, content, dates, category, created, id, archived });

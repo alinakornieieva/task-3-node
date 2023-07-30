@@ -69,7 +69,7 @@ const postNote = (req, res) => {
             if (item.id === id)
                 return true;
         });
-        if (index === -1) {
+        if (index !== -1) {
             return res.status(404).json({ message: "Such note already exists" });
         }
         (0, repositories_1.addNote)({ note, content, dates, category, created, id, archived });

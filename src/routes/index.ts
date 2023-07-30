@@ -7,14 +7,20 @@ import {
   patchNote,
   postNote,
 } from "../services";
+import { validate } from "../services/validate";
+import {
+  idSchema,
+  noteSchema,
+  updatedNoteSchema,
+} from "../services/validation";
 
 const router: Router = Router();
 
 router.get("/", getAll);
 router.get("/stats", getStats);
-router.get("/:id", getNote);
-router.post("/", postNote);
-router.delete("/:id", deleteNote);
-router.patch("/:id", patchNote);
+router.get("/:id", validate(idSchema), getNote);
+router.post("/", validate(noteSchema), postNote);
+router.delete("/:id", validate(idSchema), deleteNote);
+router.patch("/:id", validate(updatedNoteSchema), patchNote);
 
 export default router;
