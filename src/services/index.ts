@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
 import {
   data,
   removeNote,
@@ -80,7 +79,7 @@ export const postNote = (req: Request, res: Response) => {
       dates,
       category,
       created,
-      id: uuidv4(),
+      id: Date.now().toString(36),
       archived: false,
     });
     res.status(200).json({ message: "Note was created" });

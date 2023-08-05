@@ -1,0 +1,11 @@
+version: "3"
+services:
+  server:
+    image: node-server
+    container_name: node-app
+    build: .
+    ports:
+      - 5000:5000
+  db:
+    image: postgres
+    container_name: postgres-db
