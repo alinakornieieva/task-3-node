@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.patchArchived = exports.patchNote = exports.postNote = exports.deleteNote = exports.getStats = exports.getNote = exports.getAll = void 0;
+const uuid_1 = require("uuid");
 const repositories_1 = require("../repositories");
 const getAll = (req, res) => {
     try {
@@ -13,7 +14,7 @@ const getAll = (req, res) => {
 exports.getAll = getAll;
 const getNote = (req, res) => {
     try {
-        const id = +req.params.id;
+        const id = req.params.id;
         const index = repositories_1.data.findIndex((item) => {
             if (item.id === id)
                 return true;
@@ -31,7 +32,10 @@ exports.getNote = getNote;
 const getStats = (req, res) => {
     try {
         const result = [];
-        const categories = ["Task", "Random Thought", "Idea"];
+        const categories = [];
+        repositories_1.data.forEach((item) => {
+            categories.push(item.category);
+        });
         categories.forEach((item) => {
             const active = repositories_1.data.filter((cur) => cur.category === item && !cur.archived).length;
             const archived = repositories_1.data.filter((cur) => cur.category === item && cur.archived).length;
@@ -46,7 +50,7 @@ const getStats = (req, res) => {
 exports.getStats = getStats;
 const deleteNote = (req, res) => {
     try {
-        const id = +req.params.id;
+        const id = req.params.id;
         const index = repositories_1.data.findIndex((item) => {
             if (item.id === id)
                 return true;
@@ -64,15 +68,16 @@ const deleteNote = (req, res) => {
 exports.deleteNote = deleteNote;
 const postNote = (req, res) => {
     try {
-        const { note, content, dates, category, created, id, archived } = req.body;
-        const index = repositories_1.data.findIndex((item) => {
-            if (item.id === id)
-                return true;
+        const { note, content, dates, category, created } = req.body;
+        (0, repositories_1.addNote)({
+            note,
+            content,
+            dates,
+            category,
+            created,
+            id: (0, uuid_1.v4)(),
+            archived: false,
         });
-        if (index !== -1) {
-            return res.status(404).json({ message: "Such note already exists" });
-        }
-        (0, repositories_1.addNote)({ note, content, dates, category, created, id, archived });
         res.status(200).json({ message: "Note was created" });
     }
     catch (e) {
@@ -83,7 +88,7 @@ const postNote = (req, res) => {
 exports.postNote = postNote;
 const patchNote = (req, res) => {
     try {
-        const id = +req.params.id;
+        const id = req.params.id;
         const index = repositories_1.data.findIndex((item) => {
             if (item.id === id)
                 return true;
@@ -102,7 +107,7 @@ const patchNote = (req, res) => {
 exports.patchNote = patchNote;
 const patchArchived = (req, res) => {
     try {
-        const id = +req.params.id;
+        const id = req.params.id;
         const index = repositories_1.data.findIndex((item) => {
             if (item.id === id)
                 return true;

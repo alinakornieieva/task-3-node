@@ -36,8 +36,8 @@ exports.noteSchema = Yup.object({
         content: Yup.string().min(5).required(),
         dates: Yup.array().required(),
         category: Yup.string().required(),
-        id: Yup.number().required(),
-        archived: Yup.boolean().required(),
+        id: Yup.number(),
+        archived: Yup.boolean(),
     }),
 }).noUnknown(true);
 exports.updatedNoteSchema = Yup.object({

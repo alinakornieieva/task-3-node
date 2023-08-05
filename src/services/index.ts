@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { v4 as uuidv4 } from "uuid";
 import {
   data,
   removeNote,
@@ -19,7 +20,7 @@ export const getAll = (req: Request, res: Response) => {
 
 export const getNote = (req: Request, res: Response) => {
   try {
-    const id = +req.params.id;
+    const id = req.params.id;
     const index = data.findIndex((item) => {
       if (item.id === id) return true;
     });
@@ -35,7 +36,10 @@ export const getNote = (req: Request, res: Response) => {
 export const getStats = (req: Request, res: Response) => {
   try {
     const result: IStats[] = [];
-    const categories = ["Task", "Random Thought", "Idea"];
+    const categories: string[] = [];
+    data.forEach((item: INote) => {
+      categories.push(item.category);
+    });
     categories.forEach((item) => {
       const active = data.filter(
         (cur) => cur.category === item && !cur.archived
@@ -53,7 +57,7 @@ export const getStats = (req: Request, res: Response) => {
 
 export const deleteNote = (req: Request, res: Response) => {
   try {
-    const id = +req.params.id;
+    const id = req.params.id;
     const index = data.findIndex((item) => {
       if (item.id === id) return true;
     });
@@ -69,15 +73,16 @@ export const deleteNote = (req: Request, res: Response) => {
 
 export const postNote = (req: Request, res: Response) => {
   try {
-    const { note, content, dates, category, created, id, archived }: INote =
-      req.body;
-    const index = data.findIndex((item) => {
-      if (item.id === id) return true;
+    const { note, content, dates, category, created }: INote = req.body;
+    addNote({
+      note,
+      content,
+      dates,
+      category,
+      created,
+      id: uuidv4(),
+      archived: false,
     });
-    if (index !== -1) {
-      return res.status(404).json({ message: "Such note already exists" });
-    }
-    addNote({ note, content, dates, category, created, id, archived });
     res.status(200).json({ message: "Note was created" });
   } catch (e) {
     console.log(e);
@@ -87,7 +92,7 @@ export const postNote = (req: Request, res: Response) => {
 
 export const patchNote = (req: Request, res: Response) => {
   try {
-    const id = +req.params.id;
+    const id = req.params.id;
     const index = data.findIndex((item) => {
       if (item.id === id) return true;
     });
@@ -104,7 +109,7 @@ export const patchNote = (req: Request, res: Response) => {
 
 export const patchArchived = (req: Request, res: Response) => {
   try {
-    const id = +req.params.id;
+    const id = req.params.id;
     const index = data.findIndex((item) => {
       if (item.id === id) return true;
     });

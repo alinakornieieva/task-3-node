@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateArchived = exports.updateNote = exports.removeNote = exports.addNote = exports.data = void 0;
 exports.data = [
     {
-        id: 1,
+        id: "1",
         archived: false,
         note: "Dentist appointment on the 27/07/2023",
         created: "July 20, 2023",
@@ -12,7 +12,7 @@ exports.data = [
         dates: ["27/07/2023"],
     },
     {
-        id: 24,
+        id: "24",
         archived: true,
         note: "Buy milk",
         created: "July 24, 2023",
@@ -21,7 +21,7 @@ exports.data = [
         dates: [],
     },
     {
-        id: 2,
+        id: "2",
         archived: false,
         note: "Idea 1",
         created: "July 25, 2023",
@@ -30,7 +30,7 @@ exports.data = [
         dates: [],
     },
     {
-        id: 10,
+        id: "10",
         archived: false,
         note: "Idea 27/07/2023 - 30/07/2023",
         created: "July 27, 2023",
@@ -39,7 +39,7 @@ exports.data = [
         dates: ["27/07/2023, 30/07/2023"],
     },
     {
-        id: 11,
+        id: "11",
         archived: false,
         note: "Write a message",
         created: "July 27, 2023",
@@ -48,7 +48,7 @@ exports.data = [
         dates: [],
     },
     {
-        id: 1166,
+        id: "1166",
         archived: false,
         note: "Go walking",
         created: "July 27, 2023",
@@ -57,7 +57,7 @@ exports.data = [
         dates: [],
     },
     {
-        id: 2087,
+        id: "2087",
         archived: true,
         note: "Start to learn french",
         created: "July 27, 2023",
