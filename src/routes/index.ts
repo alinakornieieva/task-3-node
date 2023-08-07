@@ -4,7 +4,6 @@ import {
   getAll,
   getNote,
   getStats,
-  patchArchived,
   patchNote,
   postNote,
 } from "../services";
@@ -22,7 +21,6 @@ router.get("/stats", getStats);
 router.get("/:id", validate(idSchema), getNote);
 router.post("/", validate(noteSchema), postNote);
 router.delete("/:id", validate(idSchema), deleteNote);
-router.patch("/archive/:id", validate(idSchema), patchArchived);
 router.patch("/:id", validate(updatedNoteSchema), patchNote);
 
 export default router;

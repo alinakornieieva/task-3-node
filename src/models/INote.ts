@@ -5,5 +5,5 @@ export interface INote {
   created: string;
   category: string;
   content: string;
-  dates: string[];
+  dates: string | null;
 }

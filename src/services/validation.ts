@@ -10,7 +10,7 @@ export const noteSchema = Yup.object({
   body: Yup.object({
     note: Yup.string().min(3).required(),
     content: Yup.string().min(5).required(),
-    dates: Yup.array().required(),
+    dates: Yup.string().required().nullable(),
     category: Yup.string().required(),
     id: Yup.number(),
     archived: Yup.boolean(),
@@ -21,7 +21,7 @@ export const updatedNoteSchema = Yup.object({
   body: Yup.object({
     note: Yup.string().min(3).required(),
     content: Yup.string().min(5).required(),
-    dates: Yup.array().required(),
+    dates: Yup.string().required().nullable(),
     category: Yup.string().required(),
   }),
   params: Yup.object({
