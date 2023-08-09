@@ -1,6 +1,6 @@
 FROM node:18
 
-WORKDIR /usr/src/app
+EXPOSE 5001
 
 COPY . .
 

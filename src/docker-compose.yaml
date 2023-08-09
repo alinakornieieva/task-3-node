@@ -9,3 +9,12 @@ services:
   db:
     image: postgres
     container_name: postgres-db
+    ports: -"5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=node-db
+    volumes:
+      - nps_data:/var/lib/postgresql/data
+volumes:
+  nps_data: {}
